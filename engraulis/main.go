@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"engraulis/client"
+	"fmt"
 )
 
 func main() {

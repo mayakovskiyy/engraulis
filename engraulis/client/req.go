@@ -9,26 +9,26 @@ import (
 func Req(address string, delay time.Duration, amount int) http.Response {
 	var res *http.Response
 	var err error
-	
-	for i := 0; i < amount; i++{
+
+	for i := 0; i < amount; i++ {
 		res, err = http.Get(address)
 		fmt.Printf("Heat %d, Server: %s, Status: %d\n", i, res.Header.Get("Server"), res.StatusCode)
 		if err != nil {
 			fmt.Println(err)
 			res.Body.Close()
 			continue
-		} 
+		}
 		if address == "" {
 			fmt.Println("engraulis: Address mustn't be empty.")
 			break
-		} 
+		}
 
 		time.Sleep(delay)
 	}
 	res.Body.Close()
 	if res != nil {
-        return *res
-    }
-    
+		return *res
+	}
+
 	return http.Response{}
 }
