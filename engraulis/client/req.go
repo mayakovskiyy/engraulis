@@ -12,7 +12,12 @@ func Req(address string, delay time.Duration, amount int) http.Response {
 	var oks int
 	var errs int
 	name := address
-	
+
+	if delay < 1 {
+		fmt.Println("engraulis: delay must equal 1 or be bigger.")
+		res.Body.Close()
+	}
+
 	for i := 0; i < amount; i++ {
 		res, err = http.Get(address)
 
@@ -31,12 +36,16 @@ func Req(address string, delay time.Duration, amount int) http.Response {
 		} else {
 			errs += 1
 		}
-		
+
 		time.Sleep(delay)
 	}
+
+	fmt.Printf("Heat finished!\nOKs: %d, Errors: %d\n", oks, errs)
+
 	res.Body.Close()
 	if res != nil {
 		return *res
 	}
+
 	return http.Response{}
 }
