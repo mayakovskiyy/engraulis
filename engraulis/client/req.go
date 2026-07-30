@@ -3,15 +3,21 @@ package client
 import (
 	"fmt"
 	"net/http"
+	"os"
+	"path/filepath"
 	"time"
 )
 
-func Req(address string, delay time.Duration, amount int) http.Response {
+func Req(address string, delay time.Duration, amount int, logging bool) http.Response {
 	var res *http.Response
-	var err error
 	var oks int
 	var errs int
+	homedir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println(err)
+	}
 	name := address
+	filename := filepath.Join(homedir, "Documents", fmt.Sprintf("log_%s.txt", time.Now().Format("2006-01-02_15-04-05")))
 
 	if delay < 1 {
 		fmt.Println("engraulis: delay must equal 1 or be bigger.")
@@ -39,8 +45,16 @@ func Req(address string, delay time.Duration, amount int) http.Response {
 
 		time.Sleep(delay)
 	}
-
+	
+	logtext := fmt.Sprintf("Heat finished!\nOKs: %d, Errors: %d\nServer: %s\nDate: %s", oks, errs, address, time.Now())
 	fmt.Printf("Heat finished!\nOKs: %d, Errors: %d\n", oks, errs)
+
+	if logging {
+		err := os.WriteFile(filename, []byte(logtext), 0755)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
 
 	res.Body.Close()
 	if res != nil {
