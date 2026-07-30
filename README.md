@@ -14,14 +14,14 @@ It's really easy! Follow these steps: <br>
 
 You can look into the [main.go](engraulis/main.go) OR <br>
 You can just use it as a function: <br>
-`res := client.Req(address, delay, amount)` <br>
+`res := client.Req(address string, delay int (time.Duration), amount int, logging boolean)` <br>
 
 That's all! <br>
 
 # My Plans
 
 Things i'm *planning to* implement: <br>
-1. Logging <br>
+1. ~~Logging~~ **DONE✅**<br> 
 2. Web Dashboard <br>
 3. Other Monitoring features <br>
 
