@@ -7,7 +7,7 @@ A lightweight **Go** monitoring module. <br>
 It's really easy! Follow these steps: <br>
 1. Download this repo as a `.zip` archive <br>
 2. Add a `client` folder to use it as a module <br>
-3. Add a `{your mod name}/client` to the `import` line <br>
+3. Add a `{your .mod name}/client` to the `import` line <br>
 4. Finished!
 
 ## Usage example

@@ -26,8 +26,14 @@ func Req(address string, delay time.Duration, amount int, logging bool) http.Res
 
 	for i := 0; i < amount; i++ {
 		res, err = http.Get(address)
-
-		fmt.Printf("Heat %d, Server: %s, Status: %d\n", i, name, res.StatusCode)
+		statusIcon := ""
+		
+		if res.StatusCode == 200 { 
+			statusIcon = "🟢"
+		} else {
+			statusIcon = "🔴"
+		}
+		fmt.Printf("%s Heat %d, Server: %s, Status: %d\n", statusIcon, i, name, res.StatusCode)
 		if err != nil {
 			fmt.Println(err)
 			res.Body.Close()
