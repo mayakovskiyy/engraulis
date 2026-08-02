@@ -27,13 +27,16 @@ func Req(address string, delay time.Duration, amount int, logging bool) http.Res
 	for i := 0; i < amount; i++ {
 		res, err = http.Get(address)
 		statusIcon := ""
-		
-		if res.StatusCode == 200 { 
+		status := ""
+
+		if res.StatusCode == 200 {
 			statusIcon = "🟢"
+			status = "(OK)"
 		} else {
 			statusIcon = "🔴"
+			status = "(ERROR)"
 		}
-		fmt.Printf("%s Heat %d, Server: %s, Status: %d\n", statusIcon, i, name, res.StatusCode)
+		fmt.Printf("%s Heat %d, Server: %s, Status: %d %s\n", statusIcon, i, name, res.StatusCode, status)
 		if err != nil {
 			fmt.Println(err)
 			res.Body.Close()
@@ -51,7 +54,7 @@ func Req(address string, delay time.Duration, amount int, logging bool) http.Res
 
 		time.Sleep(delay)
 	}
-	
+
 	logtext := fmt.Sprintf("Heat finished!\nOKs: %d, Errors: %d\nServer: %s\nDate: %s", oks, errs, address, time.Now())
 	fmt.Printf("Heat finished!\nOKs: %d, Errors: %d\n", oks, errs)
 
