@@ -21,7 +21,7 @@ func Monitoring(delay time.Duration, samplingRate time.Duration) string {
 	for {
 		select {
 			case <-ticker.C:
-				current = MtrDarwin()
+				current = GetCurrMem()
 				if current > max {
 					max = current
 				} 
