@@ -1,20 +1,14 @@
 package sysmon
 
 import (
-	"os"
-	"fmt"
 	"time"
+	"fmt"
 )
 
-func SysInfo(duration time.Duration) string {
-	hn, err := os.Hostname()
-	if err != nil {
-		fmt.Println(err)
-	}
+func Monitoring(duration time.Duration) string {
+	inp := MtrDarwin()
 
-	
-
-	output := fmt.Sprintf("Hostname: %s", hn)
+	output := fmt.Sprintf("RAM Usage: %dMB", inp)
 	
 	return output
 }
