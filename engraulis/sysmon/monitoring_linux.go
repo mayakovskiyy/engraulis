@@ -1,8 +1,8 @@
 package sysmon
 
 import (
-	"os/exec"
 	"fmt"
+	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -32,15 +32,15 @@ func MtrCurrent() int {
 		val, _ := strconv.Atoi(valStr)
 
 		switch {
-			case strings.Contains(parts[0], "MemTotal"):
-				memTotal = val
-			case strings.Contains(parts[0], "MemFree"):
-				memFree = val
-			default:
-				continue
+		case strings.Contains(parts[0], "MemTotal"):
+			memTotal = val
+		case strings.Contains(parts[0], "MemFree"):
+			memFree = val
+		default:
+			continue
 		}
 	}
-	
+
 	ramUsage := (memTotal - memFree) / 1024
 
 	fmt.Println(ramUsage)

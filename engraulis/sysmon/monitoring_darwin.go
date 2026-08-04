@@ -1,8 +1,8 @@
 package sysmon
 
 import (
-	"os/exec"
 	"fmt"
+	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -16,7 +16,7 @@ func MtrCurrent() int {
 	rawOutput := strings.TrimSpace(string(output))
 
 	var pagesActive, pagesWDown, pagesComp int
-	
+
 	lines := strings.Split(string(rawOutput), "\n")
 	for _, line := range lines {
 		parts := strings.Split(line, ":")
@@ -28,18 +28,18 @@ func MtrCurrent() int {
 		val, _ := strconv.Atoi(valStr)
 
 		switch {
-			case strings.Contains(parts[0], "Pages active"):
-				pagesActive = val
-			case strings.Contains(parts[0], "Pages wired down"):
-				pagesWDown = val
-			case strings.Contains(parts[0], "Pages active"):
-				pagesComp = val
-			default:
-				continue
+		case strings.Contains(parts[0], "Pages active"):
+			pagesActive = val
+		case strings.Contains(parts[0], "Pages wired down"):
+			pagesWDown = val
+		case strings.Contains(parts[0], "Pages active"):
+			pagesComp = val
+		default:
+			continue
 		}
 	}
 
 	ramUsage := (pagesActive + pagesWDown + pagesComp) / 64
-	
+
 	return ramUsage
 }
