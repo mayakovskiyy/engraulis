@@ -10,8 +10,7 @@ import (
 
 func Req(address string, delay time.Duration, amount int, logging bool) http.Response {
 	var res *http.Response
-	var oks int
-	var errs int
+	var oks, errs int
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(err)
@@ -52,7 +51,7 @@ func Req(address string, delay time.Duration, amount int, logging bool) http.Res
 			errs += 1
 		}
 
-		time.Sleep(delay)
+		time.Sleep(delay * time.Second)
 	}
 
 	logtext := fmt.Sprintf("Heat finished!\nOKs: %d, Errors: %d\nServer: %s\nDate: %s", oks, errs, address, time.Now())
