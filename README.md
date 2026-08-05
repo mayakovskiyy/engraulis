@@ -10,7 +10,7 @@ For `engraulis/client` follow these steps: <br>
 2. Add a `client` folder to use it as a module <br>
 3. Add a `{your .mod name}/client` to the `import` line <br>
 4. Finished! <br>
-<br>
+
 For `engraulis/sysmon` follow these steps: <br>
 !WARNING `engraulis/sysmon` **DOES NOT** WORK ON WINDOWS! It supports only **macOS** and **Linux** (Distributions) <br>
 1. Download this repo as a `.zip` archive <br>
