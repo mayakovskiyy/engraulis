@@ -18,6 +18,7 @@ func main() {
 		fmt.Println(err)
 	}
 	defaultPath := filepath.Join(homeDir, "Documents", "engraulis.db")
+	sysMon := flag.Bool("sysmon", false, "System monitoring enabling.")
 	delaySysmon := flag.Int("delay", 10, "Delay between delta calculating.")
 	samplingRate := flag.Int("sampling_rate", 3, "Delay between sampling rate.")
 	logs := flag.Bool("logging", false, "Sysmon DB (Sqlite3) logging.")
@@ -40,9 +41,11 @@ func main() {
 	}
 
 	// system monitoring example ↓
-	if *logs == true {
-		sysmon.InitDatabase(*dbPath)
+	if *sysMon {
+		if *logs == true {
+			sysmon.InitDatabase(*dbPath)
+		}
+		sysmt := sysmon.Monitoring(*delaySysmon, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
+		fmt.Println(sysmt)
 	}
-	sysmt := sysmon.Monitoring(*delaySysmon, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
-	fmt.Println(sysmt)
 }
