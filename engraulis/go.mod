@@ -1,4 +1,4 @@
-module engraulis
+module github.com/mayakovskiyy/engraulis
 
 go 1.26.5
 

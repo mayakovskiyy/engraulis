@@ -6,16 +6,16 @@ import (
 	"time"
 )
 
-func Monitoring(delay time.Duration, samplingRate time.Duration) string {
+func Monitoring(delay int, samplingRate int, logging bool) string {
 	var current int
 	var max int = 0
 	var min int = math.MaxInt
 	var delta int
 
-	ticker := time.NewTicker(samplingRate * time.Second) // sampling rate ticker
+	ticker := time.NewTicker(time.Duration(samplingRate) * time.Second) // sampling rate ticker
 	defer ticker.Stop()
 
-	tickerDelay := time.NewTicker(delay * time.Minute) // delay ticker
+	tickerDelay := time.NewTicker(time.Duration(delay) * time.Minute) // delay ticker
 	defer tickerDelay.Stop()
 
 	for {
@@ -32,7 +32,9 @@ func Monitoring(delay time.Duration, samplingRate time.Duration) string {
 		case <-tickerDelay.C:
 			delta = max - min
 			fmt.Printf("Delta: %dMB\nMin: %dMB, Max: %dMB\n", delta, min, max)
-			SaveData(min, max, delta)
+			if logging {
+				SaveData(min, max, delta)
+			}
 			max = 0
 			min = math.MaxInt
 			delta = 0

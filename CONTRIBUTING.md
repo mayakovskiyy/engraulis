@@ -12,7 +12,7 @@ That's all! You're able to use any editor or IDE (Zed, Sublime Text, Vim, Nano, 
 
 # Text formatting
 For files you must use the snake case. Example: `monitoring_darwin.go`. <br>
-For functions you must use the camel case (for local functions) and the pascal case (for external functions). Example: `initDb` (This func does *not* exist), `MtrCurrent`
+For functions and variables you must use the camel case (for local functions and variables) and the pascal case (for external functions). Example: `initDb` (This func does *not* exist), `MtrCurrent`
 
 # Code
 You should keep your code: <br>

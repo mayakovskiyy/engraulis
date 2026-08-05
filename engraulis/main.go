@@ -1,15 +1,20 @@
 package main
 
 import (
-	// "engraulis/client"
-	"engraulis/sysmon"
+	// "github.com/mayakovskiyy/engraulis/client"
+	"flag"
 	"fmt"
+	"github.com/mayakovskiyy/engraulis/sysmon"
 )
 
 // usage example
 // uncomment the 4th line to use the website monitoring
 
 func main() {
+	delay := flag.Int("delay", 10, "Delay between delta calculating.")
+	samplingRate := flag.Int("sampling_rate", 3, "Delay between sampling rate.")
+	logs := flag.Bool("logging", false, "DB (Sqlite3) logging.")
+	flag.Parse()
 	// website monitoring example ↓
 	/* address := "https://example.com/"
 
@@ -20,6 +25,6 @@ func main() {
 
 	// system monitoring example ↓
 	sysmon.InitDatabase("./db/engraulis.db")
-	sysmt := sysmon.Monitoring(1, 3) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
+	sysmt := sysmon.Monitoring(*delay, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
 	fmt.Println(sysmt)
 }
