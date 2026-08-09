@@ -17,6 +17,7 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	
 	defaultPath := filepath.Join(homeDir, "Documents", "engraulis.db")
 	sysMon := flag.Bool("sysmon", false, "System monitoring enabling.")
 	delaySysmon := flag.Int("delay", 10, "Delay between delta calculating.")

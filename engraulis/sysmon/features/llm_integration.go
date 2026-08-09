@@ -1,6 +1,6 @@
 package sysmon
-
-/* import (
+/*
+import (
 	"fmt"
 	"net/http"
 	"strings"
@@ -16,7 +16,7 @@ func LlmIntegration(provider string, token string, model string) string {
 		if err != nil {
 			fmt.Println(err)
 		}
-		req, err := http.Post(url, "")
+		req, err := http.Post(url, "application/json")
 	}
 }
 */

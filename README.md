@@ -41,6 +41,7 @@ Things i'm *planning to* implement: <br>
 5. MCP Integration (mostly for beginners, I don't like LLMs) <br>
 6. Clean the repo and make it public (not only local files) <br>
 7. Other Monitoring features <br>
+8. IaC integration (**XML** and **JSON** configs instead of commands)
 
 # Contributing
 Wanna contribute? Nice! Check the [CONTRIBUTING.md](CONTRIBUTING.md) file.
