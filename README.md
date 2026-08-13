@@ -3,7 +3,7 @@
 A lightweight **Go** monitoring module. <br>
 
 # How to use Engraulis?
-`engraulis/...` stand for `github.com/mayakovskiyy/engraulis/...`.<br>
+`engraulis/...` stands for `github.com/mayakovskiyy/engraulis/...`.<br>
 
 First of all you should choose between `engraulis/sysmon` and `engraulis/client` (OR you can use both of them).<br>
 
