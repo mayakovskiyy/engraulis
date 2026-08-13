@@ -17,7 +17,8 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	
+
+	webmonPath := filepath.Join(homeDir, "Documents", "engraulisWM.db")
 	defaultPath := filepath.Join(homeDir, "Documents", "engraulis.db")
 	
 	sysMon := flag.Bool("sysmon", false, "System monitoring enabling.")
@@ -30,22 +31,25 @@ func main() {
 	delayWebsiteMonitoring := flag.Int("web_delay", 3, "Website monitoring delay.")
 	amountWebsiteMonitoring := flag.Int("web_amount", 3, "Website monitoring amount.")
 	logsWebsiteMonitoring := flag.Bool("web_logging", false, "Website Monitoring logs.")
+	dbLogsWebsiteMonitoring := flag.Bool("web_db", false, "DB for the Website Monitoring. ")
 
 	flag.Parse()
 
 	// website monitoring example ↓
 	if *websiteMonitoring {
-
-		res := client.Req(*websiteMonitoringAddress, *delayWebsiteMonitoring, *amountWebsiteMonitoring, *logsWebsiteMonitoring)
+		res := client.Req(*websiteMonitoringAddress, *delayWebsiteMonitoring, *amountWebsiteMonitoring, *logsWebsiteMonitoring, *dbLogsWebsiteMonitoring)
 		fmt.Printf("Status: %d \n", res.StatusCode)
 		fmt.Printf("Server: %s \n", *websiteMonitoringAddress) // also you're able to use: res.Header.Get("Server"), but address := ... works better imo
 		fmt.Printf("Date: %s \n", res.Header.Get("Date"))
+		if *dbLogsWebsiteMonitoring {
+			sysmon.InitDatabase(webmonPath, true)
+		}
 	}
 
 	// system monitoring example ↓
 	if *sysMon {
 		if *logs == true {
-			sysmon.InitDatabase(*dbPath)
+			sysmon.InitDatabase(*dbPath, false)
 		}
 		sysmt := sysmon.Monitoring(*delaySysmon, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
 		fmt.Println(sysmt)

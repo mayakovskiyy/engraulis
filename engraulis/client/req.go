@@ -6,9 +6,10 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+	"github.com/mayakovskiyy/engraulis/sysmon"
 )
 
-func Req(address string, delay int, amount int, logging bool) http.Response {
+func Req(address string, delay int, amount int, logging bool, db bool) http.Response {
 	var res *http.Response
 	var oks, errs int
 	homedir, err := os.UserHomeDir()
@@ -50,7 +51,10 @@ func Req(address string, delay int, amount int, logging bool) http.Response {
 		} else {
 			errs += 1
 		}
-
+		if db {
+			sysmon.SaveDataWebMon(address, res.StatusCode)
+		}
+		
 		time.Sleep(time.Duration(delay) * time.Second)
 	}
 

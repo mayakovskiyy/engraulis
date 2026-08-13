@@ -7,8 +7,9 @@ import (
 )
 
 var db *sql.DB
+var createSQLTable string
 
-func InitDatabase(dbPath string) {
+func InitDatabase(dbPath string, webmon bool) {
 	var err error
 
 	db, err = sql.Open("sqlite3", dbPath)
@@ -17,14 +18,22 @@ func InitDatabase(dbPath string) {
 	}
 
 	db.SetMaxOpenConns(1)
-
-	createSQLTable := `CREATE TABLE IF NOT EXISTS sys_metrics (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    min_usage INTEGER NOT NULL, 
-    max_usage INTEGER NOT NULL,
-    delta INTEGER NOT NULL,
-    date DATETIME DEFAULT CURRENT_TIMESTAMP
-	);`
+	if webmon != true {
+		createSQLTable = `CREATE TABLE IF NOT EXISTS sys_metrics (
+	    id INTEGER PRIMARY KEY AUTOINCREMENT,
+	    min_usage INTEGER NOT NULL, 
+	    max_usage INTEGER NOT NULL,
+	    delta INTEGER NOT NULL,
+	    date DATETIME DEFAULT CURRENT_TIMESTAMP
+		);`
+	} else {
+		createSQLTable = `CREATE TABLE IF NOT EXISTS website_monitoring (
+	    id INTEGER PRIMARY KEY AUTOINCREMENT,
+	    address TEXT,
+		status INTEGER NOT NULL,
+		date DATETIME DEFAULT CURRENT_TIMESTAMP
+		);`
+	}
 	_, err = db.Exec(createSQLTable)
 	if err != nil {
 		fmt.Println(err)
@@ -38,3 +47,11 @@ func SaveData(minval int, maxval int, deltaval int) {
 		fmt.Println(err)
 	}
 }
+
+func SaveDataWebMon(address string, status int) {
+	_, err := db.Exec("INSERT INTO website_monitoring (address, status) VALUES (?, ?)", address, status)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
