@@ -54,4 +54,3 @@ func SaveDataWebMon(address string, status int) {
 		fmt.Println(err)
 	}
 }
-

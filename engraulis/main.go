@@ -20,7 +20,7 @@ func main() {
 
 	webmonPath := filepath.Join(homeDir, "Documents", "engraulisWM.db")
 	defaultPath := filepath.Join(homeDir, "Documents", "engraulis.db")
-	
+
 	sysMon := flag.Bool("sysmon", false, "System monitoring enabling.")
 	delaySysmon := flag.Int("delay", 10, "Delay between delta calculating.")
 	samplingRate := flag.Int("sampling_rate", 3, "Delay between sampling rate.")

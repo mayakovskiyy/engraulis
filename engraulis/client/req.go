@@ -2,11 +2,11 @@ package client
 
 import (
 	"fmt"
+	"github.com/mayakovskiyy/engraulis/sysmon"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
-	"github.com/mayakovskiyy/engraulis/sysmon"
 )
 
 func Req(address string, delay int, amount int, logging bool, db bool) http.Response {
@@ -19,9 +19,11 @@ func Req(address string, delay int, amount int, logging bool, db bool) http.Resp
 	name := address
 	filename := filepath.Join(homedir, "Documents", fmt.Sprintf("log_%s.txt", time.Now().Format("2006-01-02_15-04-05")))
 
-	if delay < 1 {
-		fmt.Println("engraulis: delay must equal 1 or be bigger.")
-		res.Body.Close()
+	switch {
+	case delay < 0:
+		fmt.Println("engraulis: Delay must be bigger or equal 1")
+	case delay == 0:
+		fmt.Println("engraulis: Delay must be bigger or equal 1")
 	}
 
 	for i := 0; i < amount; i++ {
@@ -29,12 +31,15 @@ func Req(address string, delay int, amount int, logging bool, db bool) http.Resp
 		statusIcon := ""
 		status := ""
 
-		if res.StatusCode == 200 {
+		switch {
+		case res.StatusCode == 200:
 			statusIcon = "🟢"
 			status = "(OK)"
-		} else {
+			oks += 1
+		default:
 			statusIcon = "🔴"
 			status = "(ERROR)"
+			errs += 1
 		}
 		fmt.Printf("%s Heat %d, Server: %s, Status: %d %s\n", statusIcon, i, name, res.StatusCode, status)
 		if err != nil {
@@ -46,15 +51,10 @@ func Req(address string, delay int, amount int, logging bool, db bool) http.Resp
 			fmt.Println("engraulis: Address mustn't be empty.")
 			break
 		}
-		if res.StatusCode == 200 {
-			oks += 1
-		} else {
-			errs += 1
-		}
 		if db {
 			sysmon.SaveDataWebMon(address, res.StatusCode)
 		}
-		
+
 		time.Sleep(time.Duration(delay) * time.Second)
 	}
 
