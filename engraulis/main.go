@@ -35,23 +35,19 @@ func main() {
 
 	flag.Parse()
 
-	// website monitoring example ↓
-	if *websiteMonitoring {
+	switch {
+	case *websiteMonitoring:
 		res := client.Req(*websiteMonitoringAddress, *delayWebsiteMonitoring, *amountWebsiteMonitoring, *logsWebsiteMonitoring, *dbLogsWebsiteMonitoring)
 		fmt.Printf("Status: %d \n", res.StatusCode)
 		fmt.Printf("Server: %s \n", *websiteMonitoringAddress) // also you're able to use: res.Header.Get("Server"), but address := ... works better imo
 		fmt.Printf("Date: %s \n", res.Header.Get("Date"))
 		if *dbLogsWebsiteMonitoring {
 			sysmon.InitDatabase(webmonPath, true)
-		}
-	}
-
-	// system monitoring example ↓
-	if *sysMon {
-		if *logs == true {
-			sysmon.InitDatabase(*dbPath, false)
-		}
-		sysmt := sysmon.Monitoring(*delaySysmon, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
-		fmt.Println(sysmt)
+		case *sysMon:
+			if *logs == true {
+				sysmon.InitDatabase(*dbPath, false)
+			}
+			sysmt := sysmon.Monitoring(*delaySysmon, *samplingRate, *logs) // the first value stands for minutes between deltas (in minutes). the second value stands for sampling rate delay (in seconds)
+			fmt.Println(sysmt)
 	}
 }
