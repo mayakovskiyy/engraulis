@@ -3,14 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/mayakovskiyy/engraulis/client"
-	"github.com/mayakovskiyy/engraulis/sysmon"
 	"os"
 	"path/filepath"
-)
 
-// usage example
-// uncomment the 4th line to use the website monitoring
+	"github.com/mayakovskiyy/engraulis/client"
+	"github.com/mayakovskiyy/engraulis/sysmon"
+)
 
 func main() {
 	homeDir, err := os.UserHomeDir()
@@ -43,6 +41,7 @@ func main() {
 		fmt.Printf("Date: %s \n", res.Header.Get("Date"))
 		if *dbLogsWebsiteMonitoring {
 			sysmon.InitDatabase(webmonPath, true)
+		}
 	case *sysMon:
 		if *logs == true {
 			sysmon.InitDatabase(*dbPath, false)
