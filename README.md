@@ -39,7 +39,7 @@ Things i'm *planning to* implement: <br>
 3. ~~System Monitoring~~ **DONE✅** (Partly. I'll do another metrics beside of RAM Usage soon) <br>
 4. ~~Database for system monitoring~~ **DONE✅** <br>
 5. MCP Integration (mostly for beginners, I don't like LLMs) <br>
-6. Clean the repo and make it public (not only local files) <br>
+6. ~~Clean the repo and make it public (not only local files)~~ **DONE✅** <br>
 7. Other Monitoring features <br>
 8. IaC integration (**XML** and **JSON** configs instead of commands)
 
